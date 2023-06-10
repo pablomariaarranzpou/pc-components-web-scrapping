@@ -54,7 +54,7 @@ FROM motherboard MB
 JOIN ram RAM ON RAM.size >= @ram AND RAM.type LIKE CONCAT('%',MB.memorytype,'%') AND MB.ramslots >= RAM.sticks
 GROUP BY MB.socket,MB.width,MB.height) q1
 WHERE MB.socket = q1.socket AND MB.width = q1.width AND MB.height = q1.height 
-AND (MB.price + RAM.price) = q1.price) q2 ON q1.Socket = q2.Socket) q3
+AND (MB.price + RAM.price) = q1.price AND RAM.size >= @ram) q2 ON q1.Socket = q2.Socket) q3
 ON q3.MB_Height < q1.height AND q3.MB_Width < q1.depth AND COOLER_Height < q1.height
 
 JOIN (SELECT name AS Ssd, price AS Price 
